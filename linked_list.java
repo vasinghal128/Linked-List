@@ -55,6 +55,64 @@ public class linked_list{
          newnide.next = temp.next;  // we store next node address in new node
          temp.next = newnide;  // we insert node at specific index
     } 
+    public void delfirst(){
+        if(head == null){
+            return;
+        }
+        else if(size == 1){
+            head = head.next;
+            head = tail = null;
+            size--;
+            
+        }
+        head = head.next;
+        size--;
+    }
+    public void dellast(){
+        if(head == null){
+            return;
+        }
+        else if(size == 1){
+            head = tail = null;
+            size--;
+        }
+        // previous of tail is = size-2
+        Node temp = head;
+        for(int i=0;i<size-2;i++){
+            temp = temp.next;
+        }
+        temp.next = null;
+        tail = temp;
+        size--;
+    }
+    public int iterativesearch(int key){
+        Node temp = head;
+        int i=0;
+        while(temp!=null){
+            if(temp.data == key){  // key found
+                return i ; // return index
+            } 
+            temp = temp.next;
+            i++;
+        }
+        return -1;  // key not found
+    }
+    public int helper(Node head, int key){
+        if(head == null){
+            return -1;
+        }
+        if(head.data == key){
+            return 0;
+        }
+        int ind = helper(head.next, key);
+        if(ind == -1){
+            return -1;
+        }
+        return ind + 1 ;
+    }
+    public int recursivesearch(int key){
+        return helper(head, key);
+    }
     public void printllist(){
         // if linked list is empty
         if (head == null) {
@@ -73,6 +131,9 @@ public class linked_list{
     public static int size;
     public static void main(String args[]){
         linked_list ll = new linked_list();
+        ll.printllist();
+        System.out.println("Size of linked list is "+ll.size);
+        ll.delfirst();
         ll.printllist();
         System.out.println("Size of linked list is "+ll.size);
         ll.addfirst(0);
@@ -96,5 +157,15 @@ public class linked_list{
         ll.addmiddle(2, 0);
         ll.printllist();
         System.out.println("Size of linked list is "+ll.size);
+        ll.delfirst();
+        ll.printllist();
+        System.out.println("Size of linked list is "+ll.size);
+        ll.dellast();
+        ll.printllist();
+        System.out.println("Size of linked list is "+ll.size);
+        System.out.println(ll.iterativesearch(6));
+        System.out.println(ll.iterativesearch(25));
+        System.out.println(ll.recursivesearch(6));
+        System.out.println(ll.recursivesearch(25));
     }
 }
