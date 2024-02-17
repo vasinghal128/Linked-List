@@ -205,6 +205,7 @@ public class linked_list{
     public static int size;
     public static void main(String args[]){
         linked_list ll = new linked_list();
+        linked_list lll = new linked_list();
         ll.printllist();
         System.out.println("Size of linked list is "+ll.size);
         ll.delfirst();
@@ -252,5 +253,13 @@ public class linked_list{
         System.out.println(ll.recursivesearch(6));
         System.out.println(ll.recursivesearch(25));
         System.out.println(ll.palindrom());
+        lll.addfirst(0);
+        lll.addfirst(1);
+        lll.addfirst(2);
+        lll.addfirst(3);
+        lll.addfirst(4);
+        lll.addfirst(5);
+        lll.printllist();
+        System.out.println(lll.palindrom());
     }
 }
