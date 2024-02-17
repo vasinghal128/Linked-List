@@ -26,8 +26,7 @@ public class linked_list{
         // step 1 - create a new node
         Node newnoode = new Node(data);
         // if Linked list is empty
-        // size increse
-        size ++;
+       
         if(head == null){
             head = tail = newnoode;
             return;
@@ -44,7 +43,8 @@ public class linked_list{
          // step 1 - create a new node
          Node newnide = new Node(data);
          // size increse
-         size ++;
+         size++;
+         
          Node temp = head;
          int i = 0;
          
@@ -85,6 +85,29 @@ public class linked_list{
         tail = temp;
         size--;
     }
+    public void delnthfromend(int n){
+        // calculatesize
+        int sz = 0;
+        Node temp = head;
+        while(temp!=null){
+            temp = temp.next;
+            sz++;
+        }
+        if(n == sz){
+            head = head.next; // removefirst
+            return;
+        }
+        // sz-n
+        int i =1;
+        int itofind = sz-n;
+        Node prev =head;
+        while(i<itofind){
+            prev = prev.next;
+            i++;
+        }
+        prev.next = prev.next.next;
+        return;
+    }
     public int iterativesearch(int key){
         Node temp = head;
         int i=0;
@@ -112,6 +135,57 @@ public class linked_list{
     }
     public int recursivesearch(int key){
         return helper(head, key);
+    }
+    public void reverse(){
+        Node prev = null;
+        Node  curr = tail = head;
+        Node next;
+        while(curr!=null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+    // slow fast approch
+    public Node findmidllenode(Node head){
+        Node slow = head;
+        Node fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next; // slow increse by 1 node
+            fast = fast.next.next;// fast increse by 2 node
+        }
+        return slow; // slow is a middle node
+    }
+    public boolean palindrom(){
+        if(head == null || head.next==null){
+            System.out.println("Linked list is palindrom");
+            return true;
+        }
+        //step1 - find mid node
+        Node midnode = findmidllenode(head);
+        //step2 - reverse
+        Node prev = null;
+        Node curr = midnode;
+        Node next;
+        while(curr!=null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node right = prev; // right half head
+        Node left = head; // left half head
+        // step3 - check left half and right half
+        while(right != null){
+            if(left.data!=right.data){
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+        return true;
     }
     public void printllist(){
         // if linked list is empty
@@ -157,15 +231,26 @@ public class linked_list{
         ll.addmiddle(2, 0);
         ll.printllist();
         System.out.println("Size of linked list is "+ll.size);
+        ll.reverse();
+        ll.printllist();
         ll.delfirst();
         ll.printllist();
         System.out.println("Size of linked list is "+ll.size);
         ll.dellast();
         ll.printllist();
         System.out.println("Size of linked list is "+ll.size);
+        ll.delnthfromend(3);
+        ll.printllist();
+        ll.addfirst(0);
+        ll.addfirst(6);
+        ll.addlast(6);
+        ll.addfirst(25);
+        ll.addlast(25);
+        ll.printllist();
         System.out.println(ll.iterativesearch(6));
         System.out.println(ll.iterativesearch(25));
         System.out.println(ll.recursivesearch(6));
         System.out.println(ll.recursivesearch(25));
+        System.out.println(ll.palindrom());
     }
 }
